@@ -1,0 +1,31 @@
+<html>
+<head>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <img src="Afbeelding1-1.jpg" style="width:100%" />
+        <h2>Welcome to the Websocket echo proxy, messageboard!</h2>
+        <ul id="messages">
+            <li>No connection :(</li>
+        </ul>
+    </div>
+</body>
+
+<script>
+    // Create WebSocket connection.
+    const socket = new WebSocket('ws://localhost:8080/socket');
+
+    // Connection opened
+    socket.addEventListener('open', function (event) {
+        $("#messages li").remove();
+        $("#messages").append("<li>Connected to the socket</li>");
+    });
+
+    // Listen for messages
+    socket.addEventListener('message', function (event) {
+        $("#messages").append("<li>" + event.data + "</li>");
+    });
+</script>
+</html>
