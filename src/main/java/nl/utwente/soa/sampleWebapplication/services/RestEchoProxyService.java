@@ -12,7 +12,7 @@ public class RestEchoProxyService implements EchoProxyService {
 
     @Override
     public void echo(String message) {
-        String urlString = "http://www.mocky.io/v2/5e68e62f2f0000119ad8b0b1?mocky-delay=60s";
+        String urlString = "https://soa-ut-2020.free.beeceptor.com";
 
         // Manual HTTP request
         StringBuffer content = new StringBuffer();
