@@ -4,5 +4,5 @@ import javax.websocket.EncodeException;
 import java.io.IOException;
 
 public interface EchoProxyService {
-    void echo(String message) throws IOException, EncodeException;
+    void echo(String message) throws IOException, EncodeException, InterruptedException;
 }

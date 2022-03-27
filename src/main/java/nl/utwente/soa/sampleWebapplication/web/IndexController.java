@@ -25,9 +25,16 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/proxy", method= RequestMethod.POST)
-    public String processForm(@ModelAttribute(value="message") String message) throws IOException, EncodeException {
-        echoProxyService.echo(message);
-        return "result";
+    public String processForm(@ModelAttribute(value="message") String message) throws EncodeException, IOException, InterruptedException {
+        try{
+            echoProxyService.echo(message);
+            return "result";
+        }
+        catch (Exception e) {
+            return "error";
+        }
+
+
     }
 
     @GetMapping("/messageboard")

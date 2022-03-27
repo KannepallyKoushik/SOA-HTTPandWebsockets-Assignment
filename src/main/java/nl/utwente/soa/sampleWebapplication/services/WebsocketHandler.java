@@ -13,15 +13,20 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Component
 public class WebsocketHandler extends TextWebSocketHandler {
 
-    List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
+    public static List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message)
             throws InterruptedException, IOException {
 
         for(WebSocketSession webSocketSession : sessions) {
-            Map value = new Gson().fromJson(message.getPayload(), Map.class);
-            webSocketSession.sendMessage(new TextMessage("Hello " + value.get("name") + " !"));
+            webSocketSession.sendMessage(new TextMessage(message.getPayload()));
+        }
+    }
+
+    public void sendMessageToClient(String message)throws InterruptedException, IOException{
+        for(WebSocketSession webSocketSession : sessions) {
+            webSocketSession.sendMessage(new TextMessage(message));
         }
     }
 
@@ -29,5 +34,7 @@ public class WebsocketHandler extends TextWebSocketHandler {
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         //the messages will be broadcasted to all users.
         sessions.add(session);
+        session.sendMessage(new TextMessage("Initial Message sent from server"));
+
     }
 }
